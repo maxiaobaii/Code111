@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.baizhi.dao.VideoDao">
+    <select id="queryFirst" resultType="com.baizhi.po.VideoPo">
+        select v.id,
+               v.title,
+               v.cover,
+               v.path,
+               v.publish_date publishDate,
+               v.brief,
+               c.cate_name    cateName,
+               u.head_img     headImg
+        from yingx.yx_video v
+                     left join yingx.yx_category c on v.category_id = c.id
+                     left join yingx.yx_user u on v.user_id = u.id
+    </select>
+
+    <!--查询二级类别下的视频-->
+    <resultMap id="video" type="com.baizhi.po.SecondVideoPo">
+        <id column="vid" property="id"/>
+        <result column="vtitle" property="videoTitle"/>
+        <result column="vcover" property="cover"/>
+        <result column="vpath" property="path"/>
+        <result column="vpublishDate" property="uploadTime"/>
+        <result column="vbrief" property="description"/>
+        <result column="ccateName" property="cateName"/>
+        <result column="cid" property="categoryId"/>
+        <result column="uid" property="userId"/>
+        <result column="uusername" property="userName"/>
+    </resultMap>
+    <select id="querySecondVideo" resultMap="video">
+        select v.id           vid,
+               v.title        vtitle,
+               v.cover        vcover,
+               v.path         vpath,
+               v.publish_date vpublishDate,
+               v.brief        vbrief,
+               c.cate_name    ccateName,
+               c.id           cid,
+               u.id           uid,
+               u.username     uusername
+        from yingx.yx_video v
+                     left join yingx.yx_category c
+                on v.category_id = c.id
+                     left join yingx.yx_user u on
+                v.user_id = u.id
+        where v.category_id = #{cateId}
+    </select>
+    <insert id="addVideo">
+        insert into yingx.yx_video
+        set id=#{id},
+            title=#{videoTitle},
+            cover=#{cover},
+            path=#{path},
+            publish_date=#{uploadTime},
+            brief=#{description},
+            category_id=#{cateName},
+            user_id=#{userId}
+    </insert>
+
+    <resultMap id="video1" type="com.baizhi.po.VideoDetailPo">
+        <id column="vid" property="id"/>
+        <result column="vtitle" property="videoTitle"/>
+        <result column="vcover" property="cover"/>
+        <result column="vpath" property="path"/>
+        <result column="vpublishDate" property="uploadTime"/>
+        <result column="vbrief" property="description"/>
+        <result column="ccateName" property="cateName"/>
+        <result column="cid" property="categoryId"/>
+        <result column="uid" property="userId"/>
+        <result column="uusername" property="userName"/>
+        <result column="uheadImg" property="userPicImg"/>
+        <collection property="videoList" ofType="com.baizhi.po.VideoDetailPo">
+            <id column="v1id" property="id"/>
+            <result column="v1title" property="videoTitle"/>
+            <result column="v1cover" property="cover"/>
+            <result column="v1path" property="path"/>
+            <result column="v1publishDate" property="uploadTime"/>
+            <result column="v1brief" property="description"/>
+            <result column="c1cateName" property="cateName"/>
+            <result column="c1id" property="categoryId"/>
+            <result column="u1id" property="userId"/>
+            <result column="u1headImg" property="userPicImg"/>
+            <result column="u1username" property="userName"/>
+        </collection>
+    </resultMap>
+    <select id="queryByVideoDetail" resultMap="video1">
+        select v.id           vid,
+               v.title        vtitle,
+               v.cover        vcover,
+               v.path         vpath,
+               v.publish_date vpublishDate,
+               v.brief        vbrief,
+               c.cate_name    ccateName,
+               c.id           cid,
+               u.id           uid,
+               u.username     uusername,
+               u.head_img     uheadImg,
+               v.id           v1id,
+               v.title        v1title,
+               v.cover        v1cover,
+               v.path         v1path,
+               v.publish_date v1publishDate,
+               v.brief        v1brief,
+               c.cate_name    c1cateName,
+               c.id           c1id,
+               u.id           u1id,
+               u.head_img     u1headImg,
+               u.username     u1username
+        from yingx.yx_video v
+                     left join yingx.yx_category c on v.category_id = c.id
+                     left join yingx.yx_user u on
+                v.user_id = u.id
+        where v.id = #{videoId}
+    </select>
+</mapper>

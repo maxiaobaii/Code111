@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.baizhi.dao.UserDao">
+    <!--
+        "id": "3",
+        "videoTitle": "人民的名义",
+        "cover": "http://q40vnlbog.bkt.clouddn.com/1578650041065_人民的名义.jpg",
+        "path": "http://q3th1ypw9.bkt.clouddn.com/1578650041065_人民的名义.mp4",
+        "uploadTime": "2020-01-30 09:54:00",
+        "description": "人民的名义",
+        "likeCount": 0,
+        "cateName": "Java",
+        "categoryId": "16",
+        "userId": "1",
+        "userPicImg": "1.jpg",
+        "userName": "xiaohei",
+        "playCount": null,
+        "isAttention": null,
+        "videoList": null
+    -->
+    <resultMap id="user" type="com.baizhi.po.UserMovingPo">
+        <id column="vid" property="id"/>
+        <result column="vtitle" property="videoTitle"/>
+        <result column="vcover" property="cover"/>
+        <result column="vpath" property="path"/>
+        <result column="vpublishDate" property="uploadTime"/>
+        <result column="vbrief" property="description"/>
+        <result column="ccatename" property="cateName"/>
+        <result column="cid" property="categoryId"/>
+        <result column="uid" property="userId"/>
+        <result column="uusername" property="userName"/>
+        <result column="uheadImg" property="userPicImg"/>
+        <!--<collection property="videoPos" ofType="com.baizhi.po.VideoPo" javaType="list">
+            <id column="vid" property="id"/>
+            <result column="vtitle" property="title"/>
+            <result column="vcover" property="cover"/>
+            <result column="vpath" property="path"/>
+            <result column="vpublishDate" property="publishDate"/>
+            <result column="vbrief" property="brief"/>
+            <result column="" property=""/>
+        </collection>-->
+    </resultMap>
+    <select id="UserDynamics" resultMap="user">
+        select v.id           vid,
+               v.title        vtitle,
+               v.cover        vcover,
+               v.path         vpath,
+               v.publish_date vpublishDate,
+               v.brief        vbrief,
+               c.cate_name    ccatename,
+               c.id           cid,
+               u.id           uid,
+               u.head_img     uheadImg,
+               u.username     uusername
+        from yingx.yx_video v
+                     left join yingx.yx_category c on v.category_id = c.id
+                     left join yingx.yx_user u on
+                v.user_id = u.id
+        where u.id = #{userId}
+    </select>
+    <!--
+        "id": "1",
+        "username": "xiaohei",
+        "picImg": "1.jpg",
+        "phone": "11111111111",
+        "password": "111111",
+        "introduction": "123",
+        "sat": "sdfs",
+        "status": "1",
+        "wechat": "11111111",
+        "registerDate": "2020-01-15",
+        "credit": "45.2"
+    -->
+    <resultMap id="user1" type="com.baizhi.po.UserDetailPo">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="headImg" property="picImg"/>
+        <result column="phone" property="phone"/>
+        <result column="sign" property="introduction"/>
+        <result column="status" property="status"/>
+        <result column="wechat" property="wechat"/>
+        <result column="createDate" property="registerDate"/>
+    </resultMap>
+    <select id="queryByUserDateil" resultMap="user1">
+        select id          id,
+               username    username,
+               head_img    headImg,
+               phone       phone,
+               sign        sign,
+               status      status,
+               wechat      wechat,
+               create_date createDate
+        from yingx.yx_user
+        where id = #{userId}
+    </select>
+
+    <resultMap id="user2" type="com.baizhi.po.userVideoPo">
+        <id column="vid" property="id"/>
+        <result column="vtitle" property="videoTitle"/>
+        <result column="vcover" property="cover"/>
+        <result column="vpath" property="path"/>
+        <result column="vpublishDate" property="uploadTime"/>
+        <result column="vbrief" property="description"/>
+        <result column="ccateName" property="cateName"/>
+        <result column="cid" property="categoryId"/>
+        <result column="uid" property="userId"/>
+    </resultMap>
+    <select id="queryByUserVideo" resultMap="user2">
+        select v.id           vid,
+               v.title        vtitle,
+               v.cover        vcover,
+               v.path         vpath,
+               v.publish_date vpublishDate,
+               v.brief        vbrief,
+               c.cate_name    ccateName,
+               c.id           cid,
+               u.id           uid
+        from yingx.yx_video v
+                     left join yingx.yx_user u on v.user_id = u.id
+                     left join yingx.yx_category c on
+                v.category_id = c.id
+        where u.id = #{userId}
+    </select>
+
+    <!--查询用户每月的注册量-->
+    <select id="queryByMonthMan" resultType="com.baizhi.entity.Month">
+        select concat(MONTH(create_date), '月') month, count(id) count
+        from yingx.yx_new_user
+        where sex = '男'
+        group by MONTH(create_date);
+    </select>
+    <select id="queryByMonthWoMan" resultType="com.baizhi.entity.Month">
+        select concat(MONTH(create_date), '月') month, count(id) count
+        from yingx.yx_new_user
+        where sex = '女'
+        group by MONTH(create_date);
+    </select>
+    <select id="selectUserManByCity" resultType="com.baizhi.entity.City">
+        select city name, count(id) value
+        from yingx.yx_new_user
+        where sex = '男'
+        group by city
+    </select>
+    <select id="selectUserWomenByCity" resultType="com.baizhi.entity.City">
+        select city name, count(id) value
+        from yingx.yx_new_user
+        where sex = '女'
+        group by city
+    </select>
+    <!--
+        SELECT
+	        ones.*,
+	        count( id ) value
+        FROM
+	        (select *, concat(MONTH(create_date), '月') month, count(id) count
+	        from yingx.yx_new_user
+            where sex = '女'
+            group by MONTH(create_date)
+	        ) ones
+        WHERE
+	        sex = '女'
+        GROUP BY
+	        city
+    -->
+</mapper>

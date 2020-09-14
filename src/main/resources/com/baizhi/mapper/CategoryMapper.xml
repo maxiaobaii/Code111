@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "http://mybatis.org/dtd/mybatis-3-mapper.dtd" "mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.baizhi.dao.CategoryDao">
+    <!--定义一个resultMap，用来指定字段对应的实体类属性-->
+    <resultMap id="cate" type="com.baizhi.po.CategoryPo">
+        <id column="cid" property="id"/>
+        <result column="ccategoryName" property="cateName"/>
+        <result column="clevels" property="levels"/>
+        <result column="cparentId" property="parentId"/>
+        <collection property="categoryList" ofType="com.baizhi.po.CategoryPo" javaType="list">
+            <id column="ccid" property="id"/>
+            <result column="cccategoryName" property="cateName"/>
+            <result column="cclevels" property="levels"/>
+            <result column="ccparentId" property="parentId"/>
+        </collection>
+    </resultMap>
+
+    <!--查询所有一二级类别-->
+    <select id="queryAllcategory" resultMap="cate">
+        select c1.id        cid,
+               c1.cate_name ccategoryName,
+               c1.levels    clevels,
+               c1.parent_id cparentId,
+               c2.id        ccid,
+               c2.cate_name
+                            cccategoryName,
+               c2.levels    cclevels,
+               c2.parent_id ccparentId
+        from yingx.yx_category c1
+                     left join
+                     yingx.yx_category c2
+                             on
+                                     c2.parent_id = c1.id
+        where c1.levels = 1
+    </select>
+</mapper>

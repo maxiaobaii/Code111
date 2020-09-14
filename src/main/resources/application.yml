@@ -1,0 +1,31 @@
+server:
+  port: 8990
+  servlet:
+    context-path: /yingx_shijt
+    jsp:
+      init-parameters:
+        development: true
+spring:
+  mvc:
+    view:
+      suffix: .jsp
+      prefix: /
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 200MB
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/yingx?useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: root
+  redis:
+    host: 192.168.70.136
+    port: 9000
+    database: 0
+  data:
+    elasticsearch:
+      cluster-nodes: 192.168.70.138:9300
+mybatis:
+  type-aliases-package: com.baizhi.entity
+  mapper-locations: classpath:com/baizhi/mapper/*Mapper.xml

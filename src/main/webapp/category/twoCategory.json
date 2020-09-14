@@ -1,0 +1,19 @@
+{
+  "total": "3",
+  "records": "5",
+  "page": "1",
+  "rows": [
+    {
+      "id": "3",
+      "name": "java",
+      "levels": "2",
+      "parnetId": "1"
+    },
+    {
+      "id": "4",
+      "name": "PHP",
+      "levels": "2",
+      "parnetId": "1"
+    }
+  ]
+}

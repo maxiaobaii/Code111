@@ -1,0 +1,27 @@
+{
+  "total": "3",
+  "records": "5",
+  "page": "1",
+  "rows": [
+    {
+      "id": 1,
+      "username": "叶师傅",
+      "phone": "15038713551",
+      "headImg": "pic1.jpg",
+      "sign": "我很懒！！！",
+      "wechat": "1204424831",
+      "status": "正常",
+      "createDate": "2020-08-25"
+    },
+    {
+      "id": 2,
+      "username": "小黑",
+      "phone": "15038713121",
+      "headImg": "pic2.jpg",
+      "sign": "我也很懒！！！",
+      "wechat": "1204424831",
+      "status": "冻结",
+      "createDate": "2020-08-25"
+    }
+  ]
+}

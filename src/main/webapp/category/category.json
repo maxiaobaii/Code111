@@ -1,0 +1,19 @@
+{
+  "total": "3",
+  "records": "5",
+  "page": "1",
+  "rows": [
+    {
+      "id": "1",
+      "name": "编程",
+      "levels": "1",
+      "parnetId": null
+    },
+    {
+      "id": "2",
+      "name": "娱乐",
+      "levels": "1",
+      "parnetId": null
+    }
+  ]
+}
