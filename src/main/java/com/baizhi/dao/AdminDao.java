@@ -19,4 +19,7 @@ public interface AdminDao extends Mapper<Admin> {
      */
     Admin queryByUsername(String username);
 
+    //查询所有
+    Admin queryAll();
+
 }
