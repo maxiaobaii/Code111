@@ -198,4 +198,10 @@ public class YingxShijtApplicationTests {
         //6、退出
         subject.logout();
     }
+
+    @Test
+    public void test16() {
+        Admin yefz = adminDao.queryByUsername1("yefz");
+        System.out.println("yefz = " + yefz);
+    }
 }

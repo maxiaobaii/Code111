@@ -7,4 +7,36 @@
         from yingx.yx_admin
         where username = #{username}
     </select>
+
+    <!--shiro认证-->
+    <resultMap id="res1" type="Admin">
+        <id column="aid" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="salt" property="salt"/>
+        <collection property="roles" ofType="Role">
+            <id column="rid" property="id"/>
+            <result column="name" property="name"/>
+            <collection property="permissions" ofType="Permissions">
+                <id column="pid" property="id"/>
+                <result column="logo" property="logo"/>
+            </collection>
+        </collection>
+    </resultMap>
+    <select id="queryByUsername1" parameterType="java.lang.String" resultMap="res1">
+        select a.id aid,
+               a.username,
+               a.password,
+               a.salt,
+               r.id rid,
+               r.name,
+               p.id pid,
+               p.logo
+        from 2003yingx.yx_admin a
+                     left join 2003yingx.yx_admin_role ar on a.id = ar.admin_id
+                     left join 2003yingx.yx_role r on ar.role_id = r.id
+                     left join 2003yingx.yx_role_permissions rp on r.id = rp.role_id
+                     left join 2003yingx.yx_permissions p on rp.permissions_id = p.id
+        where a.username = #{username}
+    </select>
 </mapper>

@@ -18,4 +18,12 @@ public interface AdminDao extends Mapper<Admin> {
      * @return
      */
     Admin queryByUsername(String username);
+
+    /**
+     * shiro授权认证
+     *
+     * @param username
+     * @return
+     */
+    Admin queryByUsername1(String username);
 }
