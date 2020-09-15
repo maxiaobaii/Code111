@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.List;
 
-/**
+/**管理员类
  * @ClassNmae: Admin
  * @Author: yddm
  * @DateTime: 2020/8/24 14:44
