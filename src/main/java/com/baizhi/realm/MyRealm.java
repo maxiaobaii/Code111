@@ -41,7 +41,7 @@ public class MyRealm extends AuthorizingRealm {
         String principal = (String) token.getPrincipal();
         SimpleAuthenticationInfo info = null;
         //调用userDao 根据身份信息查询 对应的用户
-        Admin admin = adminDao.queryByUsername(principal);
+        Admin admin = adminDao.queryByUsername1(principal);
         System.out.println(admin);
         if (admin != null) {
             info = new SimpleAuthenticationInfo(admin.getUsername(), admin.getPassword(),

@@ -2,7 +2,6 @@ package com.baizhi.service.impl;
 
 import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.entity.ExportParams;
-import com.baizhi.annotation.AddLog;
 import com.baizhi.dao.UserDao;
 import com.baizhi.dao.VideoDao;
 import com.baizhi.entity.City;
@@ -44,7 +43,7 @@ public class UserServiceImpl implements UserService {
     @Resource
     VideoDao videoDao;
 
-    @AddLog(value = "查询所有用户")
+//    @AddLog(value = "查询所有用户")
     @Override
     public HashMap<String, Object> queryAllUserPage(Integer page, Integer rows) {
         HashMap<String, Object> map = new HashMap<>();
@@ -67,7 +66,7 @@ public class UserServiceImpl implements UserService {
         return map;
     }
 
-    @AddLog(value = "添加用户")
+    //    @AddLog(value = "添加用户")
     @Override
     public String add(User user) {
         user.setId(UUID.randomUUID().toString());
@@ -77,13 +76,13 @@ public class UserServiceImpl implements UserService {
         return user.getId();
     }
 
-    @AddLog(value = "更新用户信息")
+    //    @AddLog(value = "更新用户信息")
     @Override
     public void edit(User user) {
         userDao.updateByPrimaryKeySelective(user);
     }
 
-    @AddLog(value = "修改用户状态")
+    //    @AddLog(value = "修改用户状态")
     @Override
     public String updataStatus(User user, HttpSession session) {
         session.setAttribute("userUpdata", user);

@@ -20,4 +20,13 @@ public interface AdminService {
      * @return
      */
     HashMap<String, Object> queryByUsername(Admin admin, String code);
+
+    /**
+     * 权限认证
+     *
+     * @param admin
+     * @param code
+     * @return
+     */
+    HashMap<String, Object> queryByUsername1(Admin admin, String code);
 }

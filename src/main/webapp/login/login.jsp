@@ -30,8 +30,8 @@
         <%--切换验证码--%>
 
         function changeImage() {
-            $(".captchaImage").attr(
-                "src", "${pageContext.request.contextPath}/code/code?i=" + Math.random());
+            $("#captchaImage").attr(
+                "src", "${path}/code/code?i=" + Math.random());
         }
 
         $(function () {
@@ -47,7 +47,7 @@
                 if (isOk) {
                     //发送异步请求
                     $.ajax({
-                        url: "${path}/admin/login",
+                        url: "${path}/admin/login1",
                         type: "post",
                         data: $("#loginForm").serialize(),
                         success: function (data) {
@@ -102,7 +102,7 @@
                         </div>
                     </div>
                     <div class="form-bottom" style="width: 480px">
-                        <form role="form" action="${path}/admin/login" method="post" class="login-form" id="loginForm">
+                        <form role="form" action="${path}/admin/login1" method="post" class="login-form" id="loginForm">
                             <span id="msgDiv"></span>
                             <div class="form-group">
                                 <label class="sr-only" for="form-username">Username</label>
@@ -119,7 +119,10 @@
                                 <input style="width: 289px;height: 50px;border:3px solid #ddd;border-radius: 4px;"
                                        required type="text" name="code" id="form-code">
                                 <img id="captchaImage" style="height: 45px" class="captchaImage"
-                                     src="${path}/code/code" onClick="changeImage()">
+                                     src="${path}/code/code" onClick="changeImage()">${sessionScope.code}
+                            </div>
+                            <div class="form-group">
+                                <input name="rememberme" type="checkbox" value="1">7天内自动登录</input>
                             </div>
                             <input type="button" style="width: 430px;border:1px solid #9d9d9d;border-radius: 4px;"
                                    id="loginButtonId" value="登录">

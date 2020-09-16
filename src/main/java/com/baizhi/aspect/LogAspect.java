@@ -1,6 +1,7 @@
 package com.baizhi.aspect;
 
 import com.baizhi.annotation.AddLog;
+import com.baizhi.dao.AdminDao;
 import com.baizhi.entity.Admin;
 import com.baizhi.entity.Log;
 import com.baizhi.service.LogService;
@@ -32,6 +33,10 @@ public class LogAspect {
     HttpSession session;
     @Resource
     LogService logService;
+    //    @Resource
+//    AuthenticationToken token;
+    @Resource
+    AdminDao adminDao;
 
     /**
      * 弃用
@@ -67,7 +72,10 @@ public class LogAspect {
     }*/
     @Around("@annotation(com.baizhi.annotation.AddLog)")
     public Object addLogs(ProceedingJoinPoint joinPoint) {
+//        String principal = (String) token.getPrincipal();
         //谁   时间    操作    是否成功
+//        Admin admin = adminDao.queryByUsername1(principal);
+//        System.out.println("Log admin = " + admin);
         Admin admin = (Admin) session.getAttribute("loginAdmin");
         //时间
         Date date = new Date();

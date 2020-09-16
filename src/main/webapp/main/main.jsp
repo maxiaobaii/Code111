@@ -1,6 +1,7 @@
 <%@page pageEncoding="UTF-8" isELIgnored="false" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="path" value="${pageContext.request.contextPath}"/>
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -42,11 +43,16 @@
         <!-- 导航条内容 -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">欢迎： <span class="text text-primary">${sessionScope.loginAdmin.username}</span></a></li>
-                <li class="dropdown">
-                    <a href="${pageContext.request.contextPath}/admin/out">退出 <span
-                            class="glyphicon glyphicon-log-out"></span></a>
-                </li>
+                <shiro:guest>
+                    <li><a href="#">您尚未登录，请</a></li>
+                    <li><a href="${path}/login/login.jsp" style="color: blue">登录</a></li>
+                </shiro:guest>
+                <shiro:user>
+                    <li><a href="#">欢迎： <span class="text text-primary"><shiro:principal/></span></a></li>
+                    <li class="dropdown">
+                        <a href="${path}/logout">退出 <span class="glyphicon glyphicon-log-out"></span></a>
+                    </li>
+                </shiro:user>
             </ul>
         </div>
     </div>
@@ -124,26 +130,28 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-danger">
-                    <div class="panel-heading" role="tab" id="headingFour">
-                        <h4 class="panel-title">
-                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
-                               href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                日志管理
-                            </a>
-                        </h4>
-                    </div>
-                    <div id="collapseFour" class="panel-collapse collapse" role="tabpanel"
-                         aria-labelledby="headingFour">
-                        <div class="panel-body">
-                            <ul class="nav nav-pills nav-stacked">
-                                <li><a class="btn btn-default"
-                                       href="javascript:$('#MainId').load('${path}/log/showLog.jsp')">展示日志</a>
-                                </li>
-                            </ul>
+                <shiro:hasAnyRoles name="superAdmin">
+                    <div class="panel panel-danger">
+                        <div class="panel-heading" role="tab" id="headingFour">
+                            <h4 class="panel-title">
+                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                                   href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    日志管理
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseFour" class="panel-collapse collapse" role="tabpanel"
+                             aria-labelledby="headingFour">
+                            <div class="panel-body">
+                                <ul class="nav nav-pills nav-stacked">
+                                    <li><a class="btn btn-default"
+                                           href="javascript:$('#MainId').load('${path}/log/showLog.jsp')">展示日志</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </shiro:hasAnyRoles>
                 <div class="panel panel-primary">
                     <div class="panel-heading" role="tab" id="headingFive">
                         <h4 class="panel-title">

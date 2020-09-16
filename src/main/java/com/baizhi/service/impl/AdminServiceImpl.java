@@ -3,6 +3,11 @@ package com.baizhi.service.impl;
 import com.baizhi.dao.AdminDao;
 import com.baizhi.entity.Admin;
 import com.baizhi.service.AdminService;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -55,6 +60,33 @@ public class AdminServiceImpl implements AdminService {
                 map.put("message", "用户名输入错误");
             }
             session.setAttribute("loginAdmin", admin1);
+        } else {
+            map.put("status", false);
+            map.put("message", "验证码输入错误");
+        }
+        return map;
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public HashMap<String, Object> queryByUsername1(Admin admin, String code) {
+        Subject subject = SecurityUtils.getSubject();
+        UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(admin.getUsername(), admin.getPassword());
+        String captcha = (String) session.getAttribute("code");
+        HashMap<String, Object> map = new HashMap<>();
+        if (captcha.equals(code)) {
+            try {
+                subject.login(usernamePasswordToken);
+                map.put("status", "true");
+            } catch (UnknownAccountException e) {
+                map.put("status", false);
+                map.put("message", "用户名输入错误");
+                e.printStackTrace();
+            } catch (IncorrectCredentialsException e) {
+                map.put("status", false);
+                map.put("message", "密码输入错误");
+                e.printStackTrace();
+            }
         } else {
             map.put("status", false);
             map.put("message", "验证码输入错误");

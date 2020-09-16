@@ -21,6 +21,7 @@ import java.util.HashMap;
 
 @Configuration
 public class ShiroFilter {
+
     //将shiro过滤器工厂实例交由工厂管理
     @Bean
     public ShiroFilterFactoryBean shiroFilterFactoryBean(DefaultWebSecurityManager defaultWebSecurityManager) {
@@ -29,6 +30,13 @@ public class ShiroFilter {
         //把当前项目所有的资源设置为认证资源   authc 认证过滤器
         map.put("/**", "authc");
         //将当前资源设置为匿名资源   anon  匿名过滤器
+        map.put("/code/code", "anon");
+//        map.put("/admin/login", "anon");
+        map.put("/admin/**", "anon");
+        map.put("/main/main.jsp", "anon");
+        map.put("/bootstrap/**", "anon");
+        map.put("/index.jsp", "anon");
+        map.put("/login/login.jsp", "anon");
         //配置允许免密登录访问的资源
         //登出
         map.put("/logout", "logout");
@@ -36,7 +44,7 @@ public class ShiroFilter {
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
         //将安全管理器交由工厂管理
         shiroFilterFactoryBean.setSecurityManager(defaultWebSecurityManager);
-        shiroFilterFactoryBean.setLoginUrl("/login/login.jsp");
+        shiroFilterFactoryBean.setLoginUrl("/index.jsp");
         return shiroFilterFactoryBean;
     }
 

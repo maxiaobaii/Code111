@@ -15,6 +15,7 @@ import com.baizhi.service.UserService;
 import com.baizhi.service.VideoService;
 import com.baizhi.util.AliyunSendPhoneUtil;
 import com.baizhi.util.MD5Util;
+import com.baizhi.util.SecurityCode;
 import com.baizhi.vo.SecondVideoVo;
 import org.apache.ibatis.session.RowBounds;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -203,5 +204,11 @@ public class YingxShijtApplicationTests {
     public void test16() {
         Admin yefz = adminDao.queryByUsername1("yefz");
         System.out.println("yefz = " + yefz);
+    }
+
+    @Test
+    public void test17() {
+        String securityCode = SecurityCode.getSecurityCode();
+        System.out.println("securityCode = " + securityCode);
     }
 }

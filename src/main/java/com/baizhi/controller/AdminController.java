@@ -23,12 +23,21 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @RequestMapping("/login")
+    @RequestMapping("login")
     @ResponseBody
     public HashMap<String, Object> login(Admin admin, String code) {
         System.out.println("Controller admin = " + admin);
         System.out.println("Controller code = " + code);
         HashMap<String, Object> map = adminService.queryByUsername(admin, code);
+        return map;
+    }
+
+    @RequestMapping("login1")
+    @ResponseBody
+    public HashMap<String, Object> login1(Admin admin, String code) {
+        System.out.println("Controller admin = " + admin);
+        System.out.println("Controller code = " + code);
+        HashMap<String, Object> map = adminService.queryByUsername1(admin, code);
         return map;
     }
 

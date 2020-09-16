@@ -32,11 +32,11 @@
                r.name,
                p.id pid,
                p.logo
-        from 2003yingx.yx_admin a
-                     left join 2003yingx.yx_admin_role ar on a.id = ar.admin_id
-                     left join 2003yingx.yx_role r on ar.role_id = r.id
-                     left join 2003yingx.yx_role_permissions rp on r.id = rp.role_id
-                     left join 2003yingx.yx_permissions p on rp.permissions_id = p.id
+        from yingx.yx_admin1 a
+                     left join yingx.yx_admin_role ar on a.id = ar.admin_id
+                     left join yingx.yx_role r on ar.role_id = r.id
+                     left join yingx.yx_role_permissions rp on r.id = rp.role_id
+                     left join yingx.yx_permissions p on rp.permissions_id = p.id
         where a.username = #{username}
     </select>
 </mapper>

@@ -4,7 +4,6 @@ import com.baizhi.util.SecurityCode;
 import com.baizhi.util.SecurityImage;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletOutputStream;
@@ -20,7 +19,7 @@ import java.io.IOException;
  * @Description: TODO
  */
 @Controller
-@RequestMapping("/code")
+@RequestMapping("code")
 public class CodeController {
 
     /**
@@ -30,9 +29,9 @@ public class CodeController {
      * @param response
      * @throws IOException
      */
-    @RequestMapping("/code")
+    @RequestMapping("code")
     public void code(HttpSession session, HttpServletResponse response) throws IOException {
-        ModelAndView modelAndView = new ModelAndView();
+        System.out.println("正在获取验证码，请稍后...");
         //获取验证码字符串
         String securityCode = SecurityCode.getSecurityCode();
         System.out.println("securityCode = " + securityCode);

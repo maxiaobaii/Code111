@@ -1,6 +1,5 @@
 package com.baizhi.service.impl;
 
-import com.baizhi.annotation.AddLog;
 import com.baizhi.dao.FeedBackDao;
 import com.baizhi.dao.UserDao;
 import com.baizhi.entity.FeedBack;
@@ -31,7 +30,7 @@ public class FeedBackServiceImpl implements FeedBackService {
     @Resource
     UserDao userDao;
 
-    @AddLog(value = "查看反馈")
+//    @AddLog(value = "查看反馈")
     @Override
     public HashMap<String, Object> ShowFeed(Integer page, Integer rows) {
         HashMap<String, Object> map = new HashMap<>();
@@ -53,7 +52,7 @@ public class FeedBackServiceImpl implements FeedBackService {
         return map;
     }
 
-    @AddLog(value = "添加反馈")
+    //    @AddLog(value = "添加反馈")
     @Override
     public void add(FeedBack feedBack) {
         feedBack.setId(UUID.randomUUID().toString());
@@ -61,13 +60,13 @@ public class FeedBackServiceImpl implements FeedBackService {
         feedBackDao.insert(feedBack);
     }
 
-    @AddLog(value = "更新反馈")
+    //    @AddLog(value = "更新反馈")
     @Override
     public void update(FeedBack feedBack) {
         feedBackDao.updateByPrimaryKey(feedBack);
     }
 
-    @AddLog(value = "删除反馈")
+    //    @AddLog(value = "删除反馈")
     @Override
     public void delete(FeedBack feedBack) {
         feedBackDao.deleteByPrimaryKey(feedBack);

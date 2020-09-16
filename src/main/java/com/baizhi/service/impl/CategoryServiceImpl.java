@@ -1,6 +1,5 @@
 package com.baizhi.service.impl;
 
-import com.baizhi.annotation.AddLog;
 import com.baizhi.dao.CategoryDao;
 import com.baizhi.entity.Category;
 import com.baizhi.po.CategoryPo;
@@ -31,7 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Resource
     CategoryDao categoryDao;
 
-    @AddLog(value = "查看一级分类")
+    //    @AddLog(value = "查看一级分类")
     @Override
     public HashMap<String, Object> selectOneCategory(Integer page, Integer rows) {
         HashMap<String, Object> map = new HashMap<>();
@@ -52,7 +51,7 @@ public class CategoryServiceImpl implements CategoryService {
         return map;
     }
 
-    @AddLog(value = "查看二级分类")
+    //    @AddLog(value = "查看二级分类")
     @Override
     public HashMap<String, Object> selectSecondCategory(String oneId, Integer page, Integer rows) {
         HashMap<String, Object> map = new HashMap<>();
@@ -74,7 +73,7 @@ public class CategoryServiceImpl implements CategoryService {
         return map;
     }
 
-    @AddLog(value = "添加分类")
+    //    @AddLog(value = "添加分类")
     @Override
     public void addCategory(Category category) {
         //判断添加的是一级类别还是二级类别
@@ -108,13 +107,13 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryVos;
     }
 
-    @AddLog(value = "更新分类")
+    //    @AddLog(value = "更新分类")
     @Override
     public void updateCategory(Category category) {
         categoryDao.updateByPrimaryKeySelective(category);
     }
 
-    @AddLog(value = "删除分类")
+    //    @AddLog(value = "删除分类")
     @Override
     public HashMap<String, Object> deleteCategory(Category category) {
         HashMap<String, Object> map = new HashMap<>();

@@ -1,6 +1,5 @@
 package com.baizhi.service.impl;
 
-import com.baizhi.annotation.AddLog;
 import com.baizhi.dao.VideoDao;
 import com.baizhi.entity.Video;
 import com.baizhi.po.AddVideoPo;
@@ -52,7 +51,7 @@ public class VideoServiceImpl implements VideoService {
     @Resource
     ElasticsearchTemplate elasticsearchTemplate;
 
-    @AddLog(value = "查询所有视频")
+//    @AddLog(value = "查询所有视频")
     @Override
     public HashMap<String, Object> queryPageVideo(Integer page, Integer rows) {
         HashMap<String, Object> map = new HashMap<>();
@@ -72,7 +71,7 @@ public class VideoServiceImpl implements VideoService {
         return map;
     }
 
-    @AddLog(value = "添加视频")
+    //    @AddLog(value = "添加视频")
     @Override
     public String add(Video video) {
         String id = UUID.randomUUID().toString();
@@ -85,20 +84,20 @@ public class VideoServiceImpl implements VideoService {
         return id;
     }
 
-    @AddLog(value = "修改视频信息")
+    //    @AddLog(value = "修改视频信息")
     @Override
     public void edit(Video video) {
         videoDao.updateByPrimaryKeySelective(video);
     }
 
-    @AddLog(value = "删除视频")
+    //    @AddLog(value = "删除视频")
     @Override
     public void del(Video video) {
         videoDao.deleteByPrimaryKey(video);
     }
 
 
-    @AddLog(value = "删除视频")
+    //    @AddLog(value = "删除视频")
     @Override
     public HashMap<String, Object> delete(Video video) {
         HashMap<String, Object> map = new HashMap<>();
