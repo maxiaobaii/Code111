@@ -13,9 +13,9 @@ import java.io.IOException;
 public class AliyunOssUtil {
     private static String endpoint = "https://oss-cn-beijing.aliyuncs.com";
     // 阿里云主账号AccessKey拥有所有API的访问权限，风险很高。强烈建议您创建并使用RAM账号进行API访问或日常运维，请登录RAM控制台创建RAM账号。
-    private static String accessKeyId = "LTAI4G5UMgiJX68FJdio9jnG";
-    private static String accessKeySecret = "Lr2RmJvktEgy84j2tgmeBNwJHZX9Iz";
-    private static String bucketName = "yingx-sjt";
+    private static String accessKeyId = "";
+    private static String accessKeySecret = "";
+    private static String bucketName = "";
 
     /*
      * 上传本地文件
